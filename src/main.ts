@@ -61,12 +61,39 @@ const piece = {
   ],
 }
 
+const NEXT_DROP_TIME = 800
+
+/**
+ * Tracks the time (in milliseconds) since the last piece drop occurred.
+ */
+let dropCounter = 0
+
+/**
+ * Stores the timestamp of the last frame that was rendered.
+ */
+let lastTime = 0
 /**
  * The function that is called every frame and is responsible for updating the game
  */
-function update() {
-  draw()
+function update(time = 0) {
+  /**
+   * Difference in time between the current frame and the last frame
+   */
+  const deltaTime = time - lastTime
+  lastTime = time // reset lastTime to the current time
+  dropCounter += deltaTime
 
+  if (dropCounter > NEXT_DROP_TIME) {
+    piece.position.y++
+    if (checkCollision()) {
+      piece.position.y--
+      solidifyPiece()
+      removeRows()
+    }
+    dropCounter = 0 // reset dropCounter
+  }
+
+  draw()
   requestAnimationFrame(update)
 }
 

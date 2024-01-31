@@ -2,6 +2,7 @@ import {
   BLOCK_SIZE,
   BOARD_HEIGHT,
   BOARD_WIDTH,
+  COLORS,
   EVENT_MOVEMENTS,
   PIECES,
 } from './consts'
@@ -82,7 +83,7 @@ function draw() {
   board.forEach((row, y) => {
     row.forEach((value, x) => {
       if (value > 0) {
-        context.fillStyle = '#f00'
+        context.fillStyle = COLORS[value]
         context.fillRect(x, y, 1, 1)
       }
     })
@@ -90,9 +91,12 @@ function draw() {
 
   piece.shape.forEach((row, y) => {
     row.forEach((value, x) => {
-      if (value > 0) {
-        context.fillStyle = '#0f0'
-        context.fillRect(piece.position.x + x, piece.position.y + y, 1, 1)
+      if (value) {
+        context.beginPath()
+        context.lineWidth = 0.1
+        context.strokeStyle = COLORS[value]
+        context.rect(x + piece.position.x, y + piece.position.y, 1, 1)
+        context.stroke()
       }
     })
   })

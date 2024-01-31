@@ -120,6 +120,7 @@ document.addEventListener('keydown', (event) => {
       if (checkCollision()) {
         piece.position.y--
         solidifyPiece()
+        removeRows()
       }
       break
     // Add any additional cases here if needed
@@ -150,6 +151,21 @@ function solidifyPiece() {
   })
 
   piece.position = { x: 5, y: 5 }
+}
+
+function removeRows() {
+  const rowsToRemove: number[] = []
+  board.forEach((row, y) => {
+    if (row.every((value) => value > 0)) {
+      rowsToRemove.push(y)
+    }
+  })
+
+  rowsToRemove.forEach((y) => {
+    board.splice(y, 1)
+    const newRow = new Array(BOARD_WIDTH).fill(0)
+    board.unshift(newRow)
+  })
 }
 
 update()

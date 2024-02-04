@@ -18,7 +18,6 @@ Welcome to a modern take on the classic Tetris game. This project is a fully fun
 
 ## Known issues
 
-- [ ] Fix the collision in the lateral parts
 - [ ] Store max. score in local storage
 - [ ] Show speed in screen and increase it every 50 points
 - [ ] Change background depending on amount of points and speed?
